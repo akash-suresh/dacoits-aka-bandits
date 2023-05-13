@@ -1,5 +1,5 @@
 import random
-from BernoulliArm import BernoulliArm
+from arms.BernoulliArm import BernoulliArm
 from algorithms.EpsilonGreedy import EpsilonGreedy, ind_max
 
 # algo = Bandit Algorithm Object

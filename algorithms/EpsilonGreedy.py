@@ -1,5 +1,4 @@
 import random
-from BernoulliArm import BernoulliArm
 
 def ind_max(x):
     m = max(x)
