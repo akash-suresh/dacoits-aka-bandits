@@ -25,21 +25,31 @@ def test_algorithm(algo, arms, num_sims, horizon):
         # initializes Bandit algorithm
         algo.initialize(len(arms))
         # start running each simulation
+        # print('starting simulation # '+str(sim))
         for t in range(horizon):
             # again this is not needed?
             t = t + 1
+            # index for bookkeeping
             index = (sim - 1) * horizon + t - 1
+
+            # run trial
+            chosen_arm = algo.select_arm()
+            reward = arms[chosen_arm].draw()
+            
+            # bookkeeping
             sim_nums[index] = sim
             times[index] = t
-            chosen_arm = algo.select_arm()
             chosen_arms[index] = chosen_arm
-            reward = arms[chosen_arms[index]].draw()
             rewards[index] = reward
+
             if t == 1:
                 cumulative_rewards[index] = reward
             else:
                 cumulative_rewards[index] = cumulative_rewards[index - 1] + reward
+            
+            # update algo based on learnings
             algo.update(chosen_arm, reward)
+    
     return [sim_nums, times, chosen_arms, rewards, cumulative_rewards]
 
 
@@ -63,4 +73,4 @@ def test():
             f.write("\t".join([str(results[j][i]) for j in range(len(results))]) + "\n")
     f.close()
 
-test()
+# test()
